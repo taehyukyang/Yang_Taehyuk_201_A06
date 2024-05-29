@@ -104,8 +104,6 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 ```{r}
 
 ```
-
-
 ### Part b (3 points)
 
 Add a new named element to the end of each player's list called `height`. The heights in inches are as follows: MJ = 78; LJ = 81; KB = 78; KA = 86; SO = 85.
@@ -164,10 +162,19 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
+rounding <- function(x){
+  if(x < 100){
+    return(round(x, -1))
+  } else if(x < 1000){
+    return(round(x, -2))
+  } else{
+    return(round(x, -3))
+  }
+}
 
+rounded_matrix <- apply(mat_rand, MARGIN = 1:2, rounding)
+rounded_matrix
 ```
-
-
 ## Question 4 (9 points)
 
 Run the below code chunk to load a data frame named `max_temps` into your Environment. May need to install `tidyverse` and `janitor` first in order for this to run. You can install packages by clicking on the **Packages** tab in the bottom right pane followed by clicking **Install**.
