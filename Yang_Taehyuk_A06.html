@@ -3261,12 +3261,12 @@ Screenshot/image of RStudio
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>rounded_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]  600 1000 2000   80   40
-[2,]  700  400  500   20  100
-[3,] 2000  800 1000 2000   70
-[4,] 1000  800 2000 1000   40
-[5,]  300   90   60   10  900
-[6,] 1000   10  800   80 1000</code></pre>
+[1,]   30 1000 1000   70 1000
+[2,]  200   80  600   90  600
+[3,]   40   60   60 2000   20
+[4,] 1000 1000 2000 1000 2000
+[5,]  700 2000   50  100   70
+[6,]  300  900  300  100 1000</code></pre>
 </div>
 </div>
 </section>
@@ -3286,6 +3286,55 @@ Screenshot/image of RStudio
 <section id="part-a-2-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-a-2-points">Part a (2 points)</h3>
 <p>Calculate the average temperature for each month across the whole data frame (using the data for all three states together).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>average_temp <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(temp <span class="cf">in</span> <span class="fu">colnames</span>(max_temps)[<span class="sc">-</span><span class="dv">1</span>]){</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  average_temp[[temp]] <span class="ot">&lt;-</span> <span class="fu">mean</span>(max_temps[[temp]])</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>average_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$year
+[1] 1957.5
+
+$jan
+[1] 38.89206
+
+$feb
+[1] 41.93598
+
+$mar
+[1] 50.73148
+
+$apr
+[1] 61.35608
+
+$may
+[1] 71.26111
+
+$jun
+[1] 79.95503
+
+$jul
+[1] 84.1746
+
+$aug
+[1] 82.23571
+
+$sep
+[1] 75.92857
+
+$oct
+[1] 64.56296
+
+$nov
+[1] 51.49921
+
+$dec
+[1] 41.11508</code></pre>
+</div>
+</div>
 </section>
 <section id="part-b-2-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-b-2-points">Part b (2 points)</h3>
@@ -3296,6 +3345,11 @@ Screenshot/image of RStudio
 <li>Slice the data frame to only include the state of Virginia (VA).</li>
 </ul>
 <p>No need to print any output here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>colorado_temps <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;CO&quot;</span>,]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ohio_temps <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;OH&quot;</span>,]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>virginia_temps <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="part-c-5-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-c-5-points">Part c (5 points)</h3>
@@ -3306,6 +3360,22 @@ Screenshot/image of RStudio
 <p>Example (this is NOT the answer just an example of what goes in the {}):</p>
 <p>“The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907.”</p>
 <p>Note: This code should still run successfully even if the numbers were to change.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>median_annual_temps <span class="ot">&lt;-</span> <span class="fu">apply</span>(colorado_temps[, <span class="fu">c</span>(<span class="st">&quot;jan&quot;</span>, <span class="st">&quot;feb&quot;</span>, <span class="st">&quot;mar&quot;</span>, <span class="st">&quot;apr&quot;</span>, <span class="st">&quot;may&quot;</span>, <span class="st">&quot;jun&quot;</span>, <span class="st">&quot;jul&quot;</span>, <span class="st">&quot;aug&quot;</span>, <span class="st">&quot;sep&quot;</span>, <span class="st">&quot;oct&quot;</span>, <span class="st">&quot;nov&quot;</span>, <span class="st">&quot;dec&quot;</span>)], <span class="dv">1</span>, median)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>colorado_temps<span class="sc">$</span>median_annual_temps <span class="ot">&lt;-</span> median_annual_temps</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>max_median_index <span class="ot">&lt;-</span> <span class="fu">which.max</span>(median_annual_temps)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>min_median_index <span class="ot">&lt;-</span> <span class="fu">which.min</span>(median_annual_temps)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>max_median_temp <span class="ot">&lt;-</span> colorado_temps[max_median_index, ]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>min_median_temp <span class="ot">&lt;-</span> colorado_temps[min_median_index, ]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;The maximum median annual temperature of &quot;</span>, max_median_temp<span class="sc">$</span>median_annual_temps, <span class="st">&quot; occurred in &quot;</span>, max_median_temp<span class="sc">$</span>year, <span class="st">&quot; and the minimum median annual temperature of &quot;</span>, min_median_temp<span class="sc">$</span>median_annual_temps, <span class="st">&quot; occurred in &quot;</span>, min_median_temp<span class="sc">$</span>year, <span class="st">&quot;.&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;The maximum median annual temperature of 63.95 occurred in 1934 and the minimum median annual temperature of 50.85 occurred in 1984.&quot;</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="question-5-5-points" class="level2">

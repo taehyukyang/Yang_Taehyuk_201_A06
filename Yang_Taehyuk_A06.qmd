@@ -195,10 +195,14 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
+average_temp <- list()
 
+for(temp in colnames(max_temps)[-1]){
+  average_temp[[temp]] <- mean(max_temps[[temp]])
+}
+
+average_temp
 ```
-
-
 ### Part b (2 points)
 
 Create three new data frames by slicing the data by state.
@@ -210,9 +214,10 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
-
+colorado_temps <- max_temps[max_temps$state == "CO",]
+ohio_temps <- max_temps[max_temps$state == "OH",]
+virginia_temps <- max_temps[max_temps$state == "VA",]
 ```
-
 
 ### Part c (5 points)
 
@@ -229,12 +234,20 @@ Example (this is NOT the answer just an example of what goes in the {}):
 "The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907."
 
 Note: This code should still run successfully even if the numbers were to change.
-
 ```{r}
+median_annual_temps <- apply(colorado_temps[, c("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec")], 1, median)
+
+colorado_temps$median_annual_temps <- median_annual_temps
+
+max_median_index <- which.max(median_annual_temps)
+min_median_index <- which.min(median_annual_temps)
+
+max_median_temp <- colorado_temps[max_median_index, ]
+min_median_temp <- colorado_temps[min_median_index, ]
+
+print(paste0("The maximum median annual temperature of ", max_median_temp$median_annual_temps, " occurred in ", max_median_temp$year, " and the minimum median annual temperature of ", min_median_temp$median_annual_temps, " occurred in ", min_median_temp$year, "."))
 
 ```
-
-
 ## Question 5 (5 points)
 
 Write a recursive function that calculates the sum of the digits in a number. 
