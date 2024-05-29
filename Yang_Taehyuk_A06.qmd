@@ -257,6 +257,14 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+sum_of_digits <- function(n){
+  if(n == 0){
+    return(0)
+  } else{
+    return(n %% 10 + sum_of_digits(n %/% 10))
+  }
+}
 
+result <- sum_of_digits(935068)
+print(result)
 ```
-
