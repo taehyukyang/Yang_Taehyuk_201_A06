@@ -102,7 +102,11 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
+indexing_points <- player_info[[2]][[4]]
+name_points <- player_info$LJ$points
 
+indexing_points
+name_points
 ```
 ### Part b (3 points)
 
@@ -111,10 +115,14 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+player_heights <- c(MJ = 78, LJ = 81, KB = 78, KA = 86, SO = 85)
 
+for(player in (names(player_info))){
+  player_info[[player]] <- c(player_info[[player]], height = player_heights[player])
+}
+
+print(player_info)
 ```
-
-
 ### Part c (3 points)
 
 Create a new list that contains elements corresponding to each player's `points_per_game`. 
@@ -130,10 +138,13 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
+pts_per_game <- function(player){
+  player$points / player$games_played
+}
 
+points_per_game <- lapply(player_info, pts_per_game)
+points_per_game
 ```
-
-
 ### Part d (1 point)
 
 Use the list created in Part c and an appropriate apply function to round each value to two decimal places.
@@ -141,10 +152,13 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+two_decimal_points <- function(points){
+  round(points, 2)
+}
 
+rounded_points <- lapply(points_per_game, two_decimal_points)
+rounded_points
 ```
-
-
 ## Question 3 (3 points)
 
 Consider the matrix `mat_rand` of random numbers below.
